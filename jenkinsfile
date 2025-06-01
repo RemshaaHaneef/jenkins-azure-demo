@@ -8,17 +8,21 @@ pipeline {
         }
         stage('Build') {
             steps {
-                echo 'Building the project...'
-                // Example build commands
-                sh 'ls -la'  // Workspace ke files show karne ke liye
+                echo 'Building the Java project...'
+                // Agar tum Maven use kar rahi ho to:
+                sh 'mvn clean install'
+                
+                // Ya agar Gradle use kar rahi ho to:
+                // sh './gradlew build'
             }
         }
         stage('Deploy') {
             steps {
                 echo 'Deploying the application...'
-                // Example deploy commands
-                sh 'cp -r * /var/www/html/'  // Static site deploy karna
-                sh 'ls -la /var/www/html/'   // Deploy directory check karne ke liye
+                // Java application deploy karne ke liye jar file ko copy karo
+                sh 'cp target/*.jar /var/www/html/'  // Agar web app nahi, to apne deploy location ke mutabiq path do
+                
+                // Or agar koi specific deployment script hai to wo yahan chala sakti ho
             }
         }
     }
