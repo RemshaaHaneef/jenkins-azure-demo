@@ -1,6 +1,11 @@
 pipeline {
     agent any
     stages {
+        stage('Pull Code') {
+            steps {
+                git 'https://github.com/RemshaaHaneef/jenkins-azure-demo.git'
+            }
+        }
         stage('Build') {
             steps {
                 echo 'Building Java project...'
