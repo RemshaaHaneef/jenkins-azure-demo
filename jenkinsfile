@@ -6,24 +6,20 @@ pipeline {
                 git 'https://github.com/RemshaaHaneef/jenkins-azure-demo.git'
             }
         }
-        stage('Build') {
-            steps {
-                echo 'Building the Java project...'
-                // Agar tum Maven use kar rahi ho to:
-                sh 'mvn clean install'
-                
-                // Ya agar Gradle use kar rahi ho to:
-                // sh './gradlew build'
-            }
-        }
+       stage('Build') {
+    steps {
+        echo 'Building Java project...'
+        sh 'mvn clean install'
+    }
+}
+
+      
         stage('Deploy') {
-            steps {
-                echo 'Deploying the application...'
-                // Java application deploy karne ke liye jar file ko copy karo
-                sh 'cp target/*.jar /var/www/html/'  // Agar web app nahi, to apne deploy location ke mutabiq path do
-                
-                // Or agar koi specific deployment script hai to wo yahan chala sakti ho
-            }
-        }
+    steps {
+        echo 'Deploying application...'
+        sh 'cp target/*.jar /deploy/path/'
+    }
+}
+
     }
 }
