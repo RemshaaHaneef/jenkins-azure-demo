@@ -1,15 +1,30 @@
 pipeline {
     agent any
+
     stages {
         stage('Pull Code') {
             steps {
+                echo 'Cloning repository...'
                 git 'https://github.com/RemshaaHaneef/jenkins-azure-demo.git'
             }
         }
-   stage('Deploy') {
-    steps {
-        sh 'echo Deploying application...'
-        sh 'sudo systemctl restart myapp'  // example deploy command
+
+        stage('Build') {
+            steps {
+                echo 'Running build...'
+                // example: agar Node.js hai
+                // sh 'npm install'
+                // sh 'npm run build'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying application...'
+                // yahan apni deploy command likhein, jaise:
+                // sh 'scp -r ./build user@server:/var/www/html/'
+                // ya docker run/restart commands
+            }
+        }
     }
 }
-}}
