@@ -1,25 +1,17 @@
 pipeline {
     agent any
     stages {
-        stage('Pull Code') {
+        stage('Build') {
             steps {
-                git 'https://github.com/RemshaaHaneef/jenkins-azure-demo.git'
+                echo 'Building Java project...'
+                bat 'mvn clean install'
             }
         }
-       stage('Build') {
-    steps {
-        echo 'Building Java project...'
-        sh 'mvn clean install'
-    }
-}
-
-      
         stage('Deploy') {
-    steps {
-        echo 'Deploying application...'
-        sh 'cp target/*.jar /deploy/path/'
-    }
-}
-
+            steps {
+                echo 'Deploying application...'
+                bat 'copy target\\*.jar C:\\deploy\\path\\'
+            }
+        }
     }
 }
