@@ -6,22 +6,10 @@ pipeline {
                 git 'https://github.com/RemshaaHaneef/jenkins-azure-demo.git'
             }
         }
-        stage('Build') {
-            steps {
-                echo 'Building Java project...'
-                bat 'mvn clean install'
-            }
-        }
-        stage('Prepare Deploy Folder') {
-            steps {
-                bat 'if not exist C:\\deploy\\path mkdir C:\\deploy\\path'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying application...'
-                bat 'copy target\\*.jar C:\\deploy\\path\\'
-            }
-        }
+   stage('Deploy') {
+    steps {
+        sh 'echo Deploying application...'
+        sh 'sudo systemctl restart myapp'  // example deploy command
     }
 }
+}}
