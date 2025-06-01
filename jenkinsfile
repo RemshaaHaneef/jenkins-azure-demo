@@ -1,30 +1,25 @@
 pipeline {
     agent any
-
     stages {
         stage('Pull Code') {
             steps {
-                git 'https://github.com/<your-username>/<your-repo>.git'
+                git 'https://github.com/username/jenkins-cicd-demo.git'
             }
         }
-
-        stage('Install Dependencies') {
-            steps {
-                sh 'npm install'
-            }
-        }
-
         stage('Build') {
             steps {
-                sh 'npm run build || echo "No build step defined"'
+                echo 'Building the project...'
+                // Example build commands
+                sh 'ls -la'  // Workspace ke files show karne ke liye
             }
         }
-
-        stage('Run Application') {
+        stage('Deploy') {
             steps {
-                sh 'nohup npm start &'
+                echo 'Deploying the application...'
+                // Example deploy commands
+                sh 'cp -r * /var/www/html/'  // Static site deploy karna
+                sh 'ls -la /var/www/html/'   // Deploy directory check karne ke liye
             }
         }
     }
 }
-
