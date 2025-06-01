@@ -1,30 +1,16 @@
 pipeline {
     agent any
-
     stages {
-        stage('Clone repo') {
-            steps {
-                git credentialsId: 'your-github-creds-id', url: 'https://github.com/RemshaaHaneef/jenkins-azure-demo.git/'
-            }
-        }
-
         stage('Build') {
             steps {
-                sh 'echo "Build step goes here, like npm install or pip install"'
+                sh 'echo "Building..."'
+                // Add your build commands here
             }
         }
-
-        stage('Test') {
+        stage('Deploy') {
             steps {
-                sh 'echo "Add tests here if any"'
-            }
-        }
-
-        stage('Deploy to Azure VM') {
-            steps {
-                sshagent (credentials: ['your-ssh-creds-id']) {
-                    sh 'ssh azureuser@4.240.93.190 "cd /home/azureuser/app && git pull && pm2 restart app.js"'
-                }
+                sh 'echo "Deploying..."'
+                // Add deployment commands
             }
         }
     }
