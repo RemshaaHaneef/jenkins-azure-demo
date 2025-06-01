@@ -12,6 +12,11 @@ pipeline {
                 bat 'mvn clean install'
             }
         }
+        stage('Prepare Deploy Folder') {
+            steps {
+                bat 'if not exist C:\\deploy\\path mkdir C:\\deploy\\path'
+            }
+        }
         stage('Deploy') {
             steps {
                 echo 'Deploying application...'
