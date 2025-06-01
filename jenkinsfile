@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Pull Code') {
             steps {
-                git 'https://github.com/username/jenkins-cicd-demo.git'
+                git 'https://github.com/RemshaaHaneef/jenkins-azure-demo.git'
             }
         }
         stage('Build') {
