@@ -2,28 +2,29 @@ pipeline {
     agent any
 
     stages {
-        stage('Pull Code') {
+        stage('Clone repo') {
             steps {
-                echo 'Cloning repository...'
-                git 'https://github.com/RemshaaHaneef/jenkins-azure-demo.git'
+                git credentialsId: 'your-github-creds-id', url: 'https://github.com/your-username/your-repo.git'
             }
         }
 
         stage('Build') {
             steps {
-                echo 'Running build...'
-                // example: agar Node.js hai
-                // sh 'npm install'
-                // sh 'npm run build'
+                sh 'echo "Build step goes here, like npm install or pip install"'
             }
         }
 
-        stage('Deploy') {
+        stage('Test') {
             steps {
-                echo 'Deploying application...'
-                // yahan apni deploy command likhein, jaise:
-                // sh 'scp -r ./build user@server:/var/www/html/'
-                // ya docker run/restart commands
+                sh 'echo "Add tests here if any"'
+            }
+        }
+
+        stage('Deploy to Azure VM') {
+            steps {
+                sshagent (credentials: ['your-ssh-creds-id']) {
+                    sh 'ssh azureuser@4.240.93.190 "cd /home/azureuser/app && git pull && pm2 restart app.js"'
+                }
             }
         }
     }
