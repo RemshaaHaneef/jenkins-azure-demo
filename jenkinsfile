@@ -1,12 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage('Build') {
-            steps {
-                sh 'echo "Building..."'
-                // Add your build commands here
-            }
-        }
+       
         stage('Deploy') {
             steps {
                 sh 'echo "Deploying..."'
