@@ -1,14 +1,23 @@
 pipeline {
     agent any
+
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                sh 'echo "hello"'
+                git 'https://github.com/username/my-java-app.git'
             }
         }
-        stage('Deploy') {
+        stage('Build') {
             steps {
-                sh 'echo "Deploying..."'
+                sh 'mvn clean package'
+            }
+        }
+        stage('Deploy to Azure') {
+            steps {
+                sh '''
+                    scp -i /path/to/key.pem target/myapp.jar azureuser@<azure_ip>:/home/azureuser/
+                    ssh -i /path/to/key.pem azureuser@<azure_ip> "nohup java -jar /home/azureuser/myapp.jar > log.txt 2>&1 &"
+                '''
             }
         }
     }
