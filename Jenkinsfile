@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git credentialsId: 'github-creds', url: 'https://github.com/RemshaHaneef/jenkins-azure-demo.git'
+                git credentialsId: 'github-creds', url: 'https://github.com/RemshaaHaneef/jenkins-azure-demo.git'
             }
         }
         stage('Build') {
