@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/username/my-java-app.git'
+                git credentialsId: 'github-creds', url: 'https://github.com/RemshaHaneef/jenkins-azure-demo.git'
             }
         }
         stage('Build') {
@@ -15,8 +15,8 @@ pipeline {
         stage('Deploy to Azure') {
             steps {
                 sh '''
-                    scp -i /path/to/key.pem target/myapp.jar azureuser@<azure_ip>:/home/azureuser/
-                    ssh -i /path/to/key.pem azureuser@<azure_ip> "nohup java -jar /home/azureuser/myapp.jar > log.txt 2>&1 &"
+                    scp -i /home/azureuser/key.pem target/*.jar azureuser@<azure-ip>:/home/azureuser/
+                    ssh -i /home/azureuser/key.pem azureuser@<azure-ip> 'nohup java -jar /home/azureuser/*.jar > log.txt 2>&1 &'
                 '''
             }
         }
