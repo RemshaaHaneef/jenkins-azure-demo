@@ -1,14 +1,37 @@
 pipeline {
     agent any
     stages {
-        stage('Build') {
+        stage('Checkout Code') {
             steps {
-                sh 'echo "hello"'
+                git branch: 'main', 
+                url: 'https://github.com/RemshaaHaneef/jenkins-azure-demo.git'
             }
         }
-        stage('Deploy') {
+        
+        stage('Build with Maven') {
             steps {
-                sh 'echo "Deploying..."'
+                sh 'mvn clean package'
+            }
+        }
+        
+        stage('Run Tests') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+        
+        stage('Deploy to Azure VM') {
+            steps {
+                sshagent(['azure-vm-ssh-key']) {
+                    sh """
+                        scp -o StrictHostKeyChecking=no \
+                        target/*.jar azureuser@${AZURE_VM_IP}:/home/azureuser/
+                        
+                        ssh -o StrictHostKeyChecking=no \
+                        azureuser@${AZURE_VM_IP} \
+                        'sudo systemctl restart my-java-app.service'
+                    """
+                }
             }
         }
     }
