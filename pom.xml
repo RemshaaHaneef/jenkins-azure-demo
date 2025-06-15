@@ -17,13 +17,14 @@
       <configuration>
         <archive>
           <manifest>
-            <mainClass>LibraryManagementSystem</mainClass>
+            <mainClass>library.management.system.LibraryManagementSystem</mainClass>
           </manifest>
         </archive>
       </configuration>
     </plugin>
   </plugins>
 </build>
+
 
 
 </project>
