@@ -11,12 +11,19 @@
 <build>
   <plugins>
     <plugin>
-      <groupId>org.apache.maven.plugins</groupId>
       <artifactId>maven-jar-plugin</artifactId>
       <version>3.2.0</version>
+      <executions>
+        <execution>
+          <goals>
+            <goal>jar</goal>
+          </goals>
+        </execution>
+      </executions>
       <configuration>
         <archive>
           <manifest>
+            <addClasspath>true</addClasspath>
             <mainClass>library.management.system.LibraryManagementSystem</mainClass>
           </manifest>
         </archive>
@@ -24,6 +31,7 @@
     </plugin>
   </plugins>
 </build>
+
 
 
 
